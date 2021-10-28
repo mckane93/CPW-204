@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <form>
+
+        <label for="age">Enter Age</label>
+
+        <input id="age" type="text" required data-min-value="10" data-max-value="130" 
+
+                data-err-msg="Age is required and must be between 10 and 130" >
+
+        <br>
+
+    
+
+        <input type="button" value="Validate" id="submit-button">
+
+    </form>
+
+
+
+    <script src="scripts/helperFunctions.js"></script>
+
+    <script>
+
+        window.onload = function(){
+
+            let submitBtn = document.getElementById("submit-button");
+
+            submitBtn.onclick = validateForm;
+
+        }
+
+
+
+        function validateForm(){
+
+            let ageInput = document.getElementById("age");
+
+            let minAge = ageInput.getAttribute("data-min-value");
+
+            let maxAge = ageInput.getAttribute("data-max-value");
+
+            let ageError = ageInput.getAttribute("data-err-msg");
+
+
+
+            clearCustomErrors();
+
+
+
+            if(ageInput.value == "" || isNaN(ageInput.value)){
+
+                let errorSpan = document.createElement("span");
+
+                errorSpan.classList.add("data-custom-error");
+
+                errorSpan.innerText = ageError;
+
+
+
+                // Insert the errorSpan after the <input>
+
+                ageInput.insertAdjacentElement("afterend", errorSpan);
+
+                alert("Invalid data");
+
+            }
+
+            else if(parseInt(ageInput.value) < minAge ||
+
+                    parseInt(ageInput.value) > maxAge){
+
+                let errorSpan = document.createElement("span");
+
+                errorSpan.classList.add("data-custom-error");
+
+                errorSpan.innerText = ageError;
+
+
+
+                // Insert the errorSpan after the <input>
+
+                ageInput.insertAdjacentElement("afterend", errorSpan);
+
+                alert("Invalid data");
+
+            }
+
+        }
+
+
+
+        function clearCustomErrors(){
+
+            let allErrors = document.getElementsByClassName("data-custom-error");
+
+            for(let i = 0; i < allErrors.length; i++){
+
+                allErrors[i].remove();
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
